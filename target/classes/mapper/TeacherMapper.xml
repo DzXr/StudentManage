@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wzm.api.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.wzm.api.entity.Teacher" >
+    <id column="teanum" property="teanum" jdbcType="INTEGER" />
+    <id column="teaid" property="teaid" jdbcType="VARCHAR" />
+    <result column="teaname" property="teaname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="ins" property="ins" jdbcType="VARCHAR" />
+    <result column="teapass" property="teapass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    teanum, teaid, teaname, sex, ins, teapass
+  </sql>
+  <select id="selectpassByPrimaryid" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where
+    teaid = #{teaid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.wzm.api.entity.TeacherKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where teanum = #{teanum,jdbcType=INTEGER}
+      and teaid = #{teaid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.wzm.api.entity.TeacherKey" >
+    delete from tb_teacher
+    where teanum = #{teanum,jdbcType=INTEGER}
+      and teaid = #{teaid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wzm.api.entity.Teacher" >
+    insert into tb_teacher (teanum, teaid, teaname, 
+      sex, ins, teapass)
+    values (#{teanum,jdbcType=INTEGER}, #{teaid,jdbcType=VARCHAR}, #{teaname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{ins,jdbcType=VARCHAR}, #{teapass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wzm.api.entity.Teacher" >
+    insert into tb_teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teanum != null" >
+        teanum,
+      </if>
+      <if test="teaid != null" >
+        teaid,
+      </if>
+      <if test="teaname != null" >
+        teaname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="ins != null" >
+        ins,
+      </if>
+      <if test="teapass != null" >
+        teapass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teanum != null" >
+        #{teanum,jdbcType=INTEGER},
+      </if>
+      <if test="teaid != null" >
+        #{teaid,jdbcType=VARCHAR},
+      </if>
+      <if test="teaname != null" >
+        #{teaname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="ins != null" >
+        #{ins,jdbcType=VARCHAR},
+      </if>
+      <if test="teapass != null" >
+        #{teapass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzm.api.entity.Teacher" >
+    update tb_teacher
+    <set >
+      <if test="teaname != null" >
+        teaname = #{teaname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="ins != null" >
+        ins = #{ins,jdbcType=VARCHAR},
+      </if>
+      <if test="teapass != null" >
+        teapass = #{teapass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teaid = #{teaid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzm.api.entity.Teacher" >
+    update tb_teacher
+    set teaname = #{teaname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      ins = #{ins,jdbcType=VARCHAR},
+      teapass = #{teapass,jdbcType=VARCHAR}
+    where teanum = #{teanum,jdbcType=INTEGER}
+      and teaid = #{teaid,jdbcType=VARCHAR}
+  </update>
+</mapper>

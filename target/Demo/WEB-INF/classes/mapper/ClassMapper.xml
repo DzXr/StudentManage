@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wzm.api.dao.ClassMapper" >
+  <resultMap id="BaseResultMap" type="com.wzm.api.entity.Class" >
+    <id column="clanum" property="clanum" jdbcType="INTEGER" />
+    <id column="claid" property="claid" jdbcType="VARCHAR" />
+    <result column="ins" property="ins" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="teaid" property="teaid" jdbcType="VARCHAR" />
+    <result column="syn" property="syn" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    clanum, claid, ins, major, teaid, syn
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_class
+    where claid = #{claid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryTeaid" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_class
+    where 1=1 and teaid = #{teaid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCondition" parameterType="com.wzm.api.entity.Class" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from tb_class
+    <where>
+      1=1
+      <if test="clanum != null">
+        and clanum=#{clanum,jdbcType=INTEGER}
+      </if>
+      <if test="claid != null" >
+        #{claid,jdbcType=VARCHAR},
+      </if>
+      <if test="ins != null" >
+        #{ins,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="teaid != null" >
+        #{teaid,jdbcType=VARCHAR},
+      </if>
+      <if test="syn != null" >
+        #{syn,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="String" >
+    delete from tb_class
+    where  claid = #{claid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wzm.api.entity.Class" >
+    insert into tb_class (clanum, claid, ins, 
+      major, teaid, syn)
+    values (#{clanum,jdbcType=INTEGER}, #{claid,jdbcType=VARCHAR}, #{ins,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{teaid,jdbcType=VARCHAR}, #{syn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wzm.api.entity.Class" >
+    insert into tb_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clanum != null" >
+        clanum,
+      </if>
+      <if test="claid != null" >
+        claid,
+      </if>
+      <if test="ins != null" >
+        ins,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="teaid != null" >
+        teaid,
+      </if>
+      <if test="syn != null" >
+        syn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clanum != null" >
+        #{clanum,jdbcType=INTEGER},
+      </if>
+      <if test="claid != null" >
+        #{claid,jdbcType=VARCHAR},
+      </if>
+      <if test="ins != null" >
+        #{ins,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="teaid != null" >
+        #{teaid,jdbcType=VARCHAR},
+      </if>
+      <if test="syn != null" >
+        #{syn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzm.api.entity.Class" >
+    update tb_class
+    <set >
+      <if test="ins != null" >
+        ins = #{ins,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="teaid != null" >
+        teaid = #{teaid,jdbcType=VARCHAR},
+      </if>
+      <if test="syn != null" >
+        syn = #{syn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  claid = #{claid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzm.api.entity.Class" >
+    update tb_class
+    set ins = #{ins,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      teaid = #{teaid,jdbcType=VARCHAR},
+      syn = #{syn,jdbcType=VARCHAR}
+    where clanum = #{clanum,jdbcType=INTEGER}
+      and claid = #{claid,jdbcType=VARCHAR}
+  </update>
+</mapper>
