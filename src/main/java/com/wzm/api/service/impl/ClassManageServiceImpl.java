@@ -19,13 +19,18 @@ public class ClassManageServiceImpl implements ClassService {
 
 
     @Override
-    public List<Class> selectByPrimaryTeaid(String teacherUid) {
-        return classMapper.selectByPrimaryTeaid(teacherUid);
+    public List<Class> selectByPrimaryTeaid(String teacherUid,int start,int count) {
+        return classMapper.selectByPrimaryTeaid(teacherUid,start,count);
     }
 
     @Override
     public int insert(Class record) {
         return classMapper.insert(record);
+    }
+
+    @Override
+    public int getTotalByTeacherUid(String teacherUid) {
+        return classMapper.getTotalByTeacherUid(teacherUid);
     }
 
     @Override

@@ -15,9 +15,11 @@ public interface ClassMapper {
 
     int insertSelective(Class record);
 
+    int getTotalByTeacherUid(String teacherUid);
+
     Class selectByPrimaryKey(String key);
 
-    List<Class> selectByPrimaryTeaid(String teaid);
+    List<Class> selectByPrimaryTeaid(String teaid,int start,int count);
 
     List<Class> selectByCondition(Class record);
 

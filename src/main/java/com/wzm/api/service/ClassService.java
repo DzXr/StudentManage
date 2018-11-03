@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface ClassService {
 
-    List<Class> selectByPrimaryTeaid(String teacherUid);
+    List<Class> selectByPrimaryTeaid(String teacherUid,int start,int count);
 
     int insert(Class record);
+
+    int getTotalByTeacherUid(String teacherUid);
 
     Class selectByPrimaryKey(String key);
 

@@ -46,17 +46,13 @@ public class StudentController {
         Page page = new Page(start,count);
         String classUid = request.getParameter("claid");
         int total = studentService.getTotalByClaid(classUid);
-        System.out.println(total);
         page.setTotal(total);
         int totalPage = page.getTotalPage();
-        System.out.println(totalPage);
         List<Student> list = studentService.selectByPrimaryClaidASC(classUid,start,count);
 
 
         HttpSession session = request.getSession();
         session.setAttribute("claid",classUid);///将claid保存在session中
-        //request.setAttribute("claid",classUid);
-        //request.setAttribute("start",start+count);
 
 
         PrintWriter out = response.getWriter();
@@ -97,7 +93,6 @@ public class StudentController {
         }
         out.println("</div>");
         out.println("<html></body>");
-
         return null;
     }
 

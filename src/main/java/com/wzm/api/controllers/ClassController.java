@@ -2,6 +2,7 @@ package com.wzm.api.controllers;
 
 import com.wzm.api.entity.Class;
 import com.wzm.api.service.ClassService;
+import com.wzm.api.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,18 @@ public class ClassController {
 
         HttpSession session = request.getSession();
         String teacherUid = session.getAttribute("teaid").toString();
-        List<Class> list = classService.selectByPrimaryTeaid(teacherUid);
+        int start=0,count=7;
+        try{
+            start = Integer.parseInt(request.getParameter("start"));
+        }catch (Exception e){
+        }
+        Page page = new Page(start,count);
+        int total = classService.getTotalByTeacherUid(teacherUid);
+        page.setTotal(total);
+        int totalPage = page.getTotalPage();
+
+
+        List<Class> list = classService.selectByPrimaryTeaid(teacherUid,start,count);
         PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
@@ -54,6 +66,21 @@ public class ClassController {
             out.println("</tr>");
         }
         out.println("</table>");
+        out.println("<br>");
+        if(page.isHasPreviouse()){
+            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start="+(start-count)+"' style=\"text-decoration:none\"><font size=\"2\">上一页</font></a></td></table>");
+        }
+        for (int i = 1; i <= totalPage; i++) {
+            if (start == (i - 1) * count) {
+                out.print("<table style=\"float:left; width:23px; height:15px; border:0px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
+            }
+            else{
+                out.print("<table style=\"float:left; width:23px; height:15px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
+            }
+        }
+        if(page.isHasNext()) {
+            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start="+(start+count)+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
+        }
         out.println("</div>");
         out.println("<html></body>");
 

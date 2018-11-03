@@ -18,11 +18,18 @@
     from tb_class
     where claid = #{claid,jdbcType=VARCHAR}
   </select>
-  <select id="selectByPrimaryTeaid" resultMap="BaseResultMap" parameterType="String" >
+  <select id="getTotalByTeacherUid" resultType="INTEGER" parameterType="String" >
+    select
+    count(*)
+    from tb_class
+    where teaid = #{teaid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryTeaid" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from tb_class
-    where 1=1 and teaid = #{teaid,jdbcType=VARCHAR}
+    where teaid = #{param1}
+    order by claid ASC LIMIT #{param2}, #{param3}
   </select>
   <select id="selectByCondition" parameterType="com.wzm.api.entity.Class" resultMap="BaseResultMap">
     SELECT

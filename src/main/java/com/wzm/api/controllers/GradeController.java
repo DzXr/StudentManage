@@ -4,6 +4,7 @@ import com.wzm.api.entity.ClassCourse;
 import com.wzm.api.entity.Grade;
 import com.wzm.api.entity.Student;
 import com.wzm.api.service.*;
+import com.wzm.api.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +44,17 @@ public class GradeController {
 
         HttpSession session = request.getSession();
         String classUid = session.getAttribute("claid").toString();
+        int start=0,count=7;
+        try{
+            start = Integer.parseInt(request.getParameter("start"));
+        }catch (Exception e){
+        }
+        Page page = new Page(start,count);
+        int total = studentService.getTotalByClaid(classUid);
+        page.setTotal(total);
+        int totalPage = page.getTotalPage();
         List<ClassCourse> classCoursesList = classCourseService.selectByPrimaryKey(classUid);
-        List<Student> studentsList = studentService.selectByPrimaryClaid(classUid);
+        List<Student> studentsList = studentService.selectByPrimaryClaidASC(classUid,start,count);
 
         PrintWriter out = response.getWriter();
         out.println("<html></body>");
@@ -79,6 +89,21 @@ public class GradeController {
             out.println("</tr>");
         }
         out.println("</table>");
+        out.println("<br>");
+        if(page.isHasPreviouse()){
+            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/gradeManage.do?start="+(start-count)+"' style=\"text-decoration:none\"><font size=\"2\">上一页</font></a></td></table>");
+        }
+        for (int i = 1; i <= totalPage; i++) {
+            if (start == (i - 1) * count) {
+                out.print("<table style=\"float:left; width:23px; height:15px; border:0px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/gradeManage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
+            }
+            else{
+                out.print("<table style=\"float:left; width:23px; height:15px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/gradeManage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
+            }
+        }
+        if(page.isHasNext()) {
+            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/gradeManage.do?start="+(start+count)+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
+        }
         out.println("</div>");
         out.println("<html></body>");
 
