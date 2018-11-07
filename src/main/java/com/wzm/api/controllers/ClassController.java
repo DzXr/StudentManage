@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -49,11 +48,14 @@ public class ClassController {
 
 
         List<Class> list = classService.selectByPrimaryTeaid(teacherUid,start,count);
-        PrintWriter out = response.getWriter();
+        request.setAttribute("list",list);
+        request.setAttribute("page",page);
+        request.getRequestDispatcher("/clamanage.jsp").forward(request,response);
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
-        out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<div style='align:center;background-color:#eeeeee'>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>.+.+.+.+.+</sup><a href='searchcla.html'>查找班级</a><sup>.+.+.+.+.+</sup><a href='addcla.html'>增加班级</a><sup>.+.+.+.+.+</sup><br>");
         out.println("<table border=1>");
         out.println("<th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>");
@@ -82,7 +84,7 @@ public class ClassController {
             out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start="+(start+count)+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
         }
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
     }
@@ -122,11 +124,15 @@ public class ClassController {
         request.setCharacterEncoding("utf-8");//解决乱码问题
         String classUid =  request.getParameter("claid");
         Class classes = classService.selectByPrimaryKey(classUid);
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        session.setAttribute("classes",classes);
+        request.getRequestDispatcher("/searchCla.jsp").forward(request,response);
+
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>.+.+.+.+.+</sup><a href='searchcla.html'>查找班级</a><sup>.+.+.+.+.+</sup><a href='addcla.html'>增加班级</a><sup>.+.+.+.+.+</sup><br>");
         out.println("<table border=1>");
         out.println("<th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>");
@@ -138,7 +144,7 @@ public class ClassController {
         out.println("</tr>");
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
 

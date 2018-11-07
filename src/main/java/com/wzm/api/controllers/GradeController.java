@@ -1,8 +1,6 @@
 package com.wzm.api.controllers;
 
-import com.wzm.api.entity.ClassCourse;
-import com.wzm.api.entity.Grade;
-import com.wzm.api.entity.Student;
+import com.wzm.api.entity.*;
 import com.wzm.api.service.*;
 import com.wzm.api.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,15 +51,33 @@ public class GradeController {
         Page page = new Page(start,count);
         int total = studentService.getTotalByClaid(classUid);
         page.setTotal(total);
-        int totalPage = page.getTotalPage();
         List<ClassCourse> classCoursesList = classCourseService.selectByPrimaryKey(classUid);
         List<Student> studentsList = studentService.selectByPrimaryClaidASC(classUid,start,count);
+        List<Course> courseList =  new ArrayList<Course>();
+        List<Grade> gradeList = new ArrayList<Grade>();
+        for (ClassCourse b : classCoursesList){
+            Course course = courseManageService.selectByPrimaryKey(b.getCouid());
+            courseList.add(course);
+        }
+        for (Student c : studentsList){
+            for (ClassCourse b : classCoursesList){
+                Grade grade = gradeService.selectGradeByPrimarySelective(c.getStuid(), b.getCouid());
+                gradeList.add(grade);
+            }
+        }
+        request.setAttribute("classCoursesList",classCoursesList);
+        request.setAttribute("studentsList",studentsList);
+        request.setAttribute("courseList",courseList);
+        request.setAttribute("gradeList",gradeList);
+        request.setAttribute("page",page);
+        request.getRequestDispatcher("gradeManage.jsp").forward(request,response);
 
-        PrintWriter out = response.getWriter();
+
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>·+·+</sup><a href='/checkCourseGrade.do'>查看各科成绩</a>");
         out.println("<table border=1>");
         out.print("<th width=6%>学生号</th><th width=5%>学生名</th>");
@@ -105,7 +122,7 @@ public class GradeController {
             out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/gradeManage.do?start="+(start+count)+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
         }
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
     }
@@ -114,7 +131,7 @@ public class GradeController {
 
 
 
-    @RequestMapping("/addGradeHtml.do")
+    @RequestMapping("/addGradePage.do")
     public String addGradeHtml(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
@@ -125,12 +142,19 @@ public class GradeController {
         HttpSession session = request.getSession();
         session.setAttribute("stuid", studentUid);
         List<ClassCourse> classCoursesList = classCourseService.selectByPrimaryKey(classUid);
+        List<Course> courseList = new ArrayList<Course>();
+        for (ClassCourse b : classCoursesList){
+            courseList.add(courseManageService.selectByPrimaryKey(b.getCouid()));
+        }
+        request.setAttribute("classCoursesList",classCoursesList);
+        request.setAttribute("courseList",courseList);
+        request.getRequestDispatcher("addGradePage.jsp").forward(request,response);
 
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/jsp.html'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<table border=1>");
         out.println("<div align =\"center\" style=\"text-align:center;background-color:#eeeeee\">");
         out.println("<form action=\"/addGrade.do\" method=\"post\">");
@@ -145,7 +169,7 @@ public class GradeController {
         out.println("<input type=\"submit\" value=\"提交\"/>");
         out.println("</form>");
         out.println("</div>");
-
+        out.println("<html></body>");*/
         return null;
 
     }
@@ -188,11 +212,24 @@ public class GradeController {
         HttpSession session = request.getSession();
         String classUid = session.getAttribute("claid").toString();
         List<ClassCourse> classCoursesList = classCourseService.selectByPrimaryKey(classUid);
-        PrintWriter out = response.getWriter();
+        List<CourseGrade> courseGradeList = new ArrayList<CourseGrade>();
+        for (ClassCourse b : classCoursesList){
+            CourseGrade courseGrade = new CourseGrade();
+            courseGrade.setCourserName(courseManageService.selectByPrimaryKey(b.getCouid()).getCouname());
+            courseGrade.setCourseAVG(gradeService.selectCourseAVG(classUid,b.getCouid()));
+            courseGrade.setCourseMax(gradeService.selectCourseGradeMax(classUid,b.getCouid()));
+            courseGrade.setCourseMin(gradeService.selectCourseGradeMix(classUid,b.getCouid()));
+            courseGradeList.add(courseGrade);
+        }
+        request.setAttribute("courseGradeList",courseGradeList);
+        request.getRequestDispatcher("checkCourseGrade.jsp").forward(request,response);
+
+
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
-        out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<div style='align:center;background-color=#eeeeee'>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<table border=1>");
         out.print("<th width=7%>课程</th><th width=5%>平均成绩</th><th width=5%>最高分</th><th width=5%>最低分</th>");
         for (ClassCourse b : classCoursesList) {
@@ -205,7 +242,7 @@ public class GradeController {
         }
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
 

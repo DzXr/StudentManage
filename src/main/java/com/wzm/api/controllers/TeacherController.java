@@ -31,6 +31,7 @@ public class TeacherController {
 
         response.setContentType("text/html;charset=utf-8");  //细节解决乱码 防止存入数据库中时为乱码
         request.setCharacterEncoding("utf-8");//解决乱码问题
+
         String teacherUid = request.getParameter("teaid");
         String passWord = request.getParameter("teapass");
         if(teacherLoginService.login(teacherUid,passWord))
@@ -39,8 +40,9 @@ public class TeacherController {
             session.setAttribute("teaid",teacherUid);///将teaid保存在session中
             response.sendRedirect("/main.html");
         }
-        else
-            response.sendRedirect("/login.html");
+        else {
+            response.sendRedirect("/login.jsp?judge=1");
+        }
 
         return null;
     }
@@ -63,7 +65,7 @@ public class TeacherController {
         String reNewPassword = request.getParameter("password1");
 
         if(teacherUpdatePasswordService.updatePassword(teacherUid,oldPassword,newPassword,reNewPassword))
-            response.sendRedirect("/login.html");
+            response.sendRedirect("/login.jsp");
         else
             response.sendRedirect("/updateteapassword.html");
 

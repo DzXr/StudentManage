@@ -3,8 +3,6 @@ package com.wzm.api.controllers;
 import com.wzm.api.entity.ClassCourse;
 import com.wzm.api.entity.Course;
 import com.wzm.api.service.*;
-import com.wzm.api.service.impl.ClassManageServiceImpl;
-import com.wzm.api.service.impl.CourseManageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.channels.ClosedSelectorException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,14 +40,19 @@ public class CourseControl {
 
         HttpSession session = request.getSession();
         String classUid = session.getAttribute("claid").toString();
-        Course course;
+        List<Course> courseList = new ArrayList<Course>();
         List<ClassCourse> list = classCourseService.selectByPrimaryKey(classUid);
-
-        PrintWriter out = response.getWriter();
+        for (ClassCourse b : list){
+            Course course = courseManageService.selectByPrimaryKey(b.getCouid());
+            courseList.add(course);
+        }
+        request.setAttribute("courseList",courseList);
+        request.getRequestDispatcher("/courseManage.jsp").forward(request,response);
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>·+·+</sup><a href='/addClassCourse.do'>添加班级课程</a><sup>·+·+</sup><br>");
         out.println("<table border=1>");
         out.println("<th width=10%>课程号</th><th width=10%>课程名</th><th width=10%>学分</th><th width=5%>操作</th>");
@@ -65,9 +67,7 @@ public class CourseControl {
         }
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
-
-
+        out.println("<html></body>");*/
 
         return null;
     }
@@ -82,15 +82,17 @@ public class CourseControl {
 
         HttpSession session = request.getSession();
         String classUid = session.getAttribute("claid").toString();
-        Course course;
         List<ClassCourse> classCourseList = classCourseService.selectByPrimaryKey(classUid);
         List<Course> courseList = courseManageService.selectByPrimarySelective();
+        session.setAttribute("classCourseList",classCourseList);
+        session.setAttribute("courseList",courseList);
+        request.getRequestDispatcher("/addClassCourse.jsp").forward(request,response);
 
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<table border=1>");
         out.println("<th width=10%>课程号</th><th width=10%>课程名</th><th width=10%>学分</th><th width=5%>操作</th>");
         out.println("<sup>·+·+</sup><a href='/addCourse.html'>开设课程</a><sup>·+·+</sup><a href='/searchCourse.html'>查询课程</a><br>");
@@ -118,7 +120,7 @@ public class CourseControl {
         }
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
     }
@@ -169,15 +171,18 @@ public class CourseControl {
         String courseName =  request.getParameter("couname");
         HttpSession session = request.getSession();
         String classUid = session.getAttribute("claid").toString();
-        Course course;
+
         List<ClassCourse> classCourseList = classCourseService.selectByPrimaryKey(classUid);
         List<Course> courseList = courseManageService.selectByPrimaryCouname(courseName);
+        session.setAttribute("courseList",courseList);
+        session.setAttribute("classCourseList",classCourseList);
+        request.getRequestDispatcher("/searchCourse.jsp").forward(request,response);
 
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<table border=1>");
         out.println("<th width=10%>课程号</th><th width=10%>课程名</th><th width=10%>学分</th><th width=5%>操作</th>");
         out.println("<sup>·+·+</sup><a href='/addCourse.html'>开设课程</a><sup>·+·+</sup><br>");
@@ -205,10 +210,8 @@ public class CourseControl {
         }
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
-
+        out.println("<html></body>");*/
         return null;
-
     }
 
 

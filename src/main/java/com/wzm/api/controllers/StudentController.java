@@ -47,19 +47,21 @@ public class StudentController {
         String classUid = request.getParameter("claid");
         int total = studentService.getTotalByClaid(classUid);
         page.setTotal(total);
-        int totalPage = page.getTotalPage();
         List<Student> list = studentService.selectByPrimaryClaidASC(classUid,start,count);
 
 
         HttpSession session = request.getSession();
         session.setAttribute("claid",classUid);///将claid保存在session中
+        request.setAttribute("page",page);
+        request.setAttribute("list",list);
+        request.getRequestDispatcher("/classInformationManage.jsp").forward(request,response);
 
 
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h2>班级管理</h2>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>.+.+.+.+.+</sup><a href='searchStu.html'>查找学生</a><sup>.+.+.+.+.+</sup><a href='/addStu.html '>增加学生</a><sup>.+.+.+.+.+</sup><a href='/courseManage.do'>课程管理</a><sup>.+.+.+.+.+</sup><a href='/gradeManage.do'>成绩管理</a><br>");
         out.println("<table border=1>");
         out.println("<th width=8%>学号</th><th width=5%>姓名</th><th width=5%>性别</th><th width=15%>出生日期</th><th width=15%>家庭住址</th><th width=8%>政治面貌</th><th width=8%>操作</th>");
@@ -92,7 +94,7 @@ public class StudentController {
             out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/classInformationManage.do?start="+(start+count)+"&claid="+classUid+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
         }
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
         return null;
     }
 
@@ -131,13 +133,15 @@ public class StudentController {
 
         String studentUid =  request.getParameter("stuid");
         Student student = studentService.selectByPrimaryStuid(studentUid);
-
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        session.setAttribute("student",student);
+        request.getRequestDispatcher("/searchStu.jsp").forward(request,response);
+        /*PrintWriter out = response.getWriter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<h2>班级管理</h2>");
-        out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>");
+        out.println("<div style='aligin:cener;background-color=#eeeeee'>");
+        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
         out.println("<sup>.+.+.+.+.+</sup><a href='searchStu.html'>查找学生</a><sup>.+.+.+.+.+</sup><a href='/addStu.html '>增加学生</a><sup>.+.+.+.+.+</sup><a href='courseManage.do'>课程管理</a><sup>.+.+.+.+.+</sup><a href='gradeManage.html'>成绩管理</a><br>");
         out.println("<table border=1>");
         out.println("<th width=8%>学号</th><th width=5%>姓名</th><th width=5%>性别</th><th width=15%>出生日期</th><th width=15%>家庭住址</th><th width=8%>政治面貌</th><th width=8%>操作</th>");
@@ -155,7 +159,7 @@ public class StudentController {
 
         out.println("</table>");
         out.println("</div>");
-        out.println("<html></body>");
+        out.println("<html></body>");*/
 
         return null;
 
