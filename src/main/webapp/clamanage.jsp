@@ -1,4 +1,4 @@
-<%--
+﻿<%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/11/5 0005
@@ -12,15 +12,26 @@
     <%@ page import="java.util.List" %>
     <%@ page import="com.wzm.api.util.Page" %>
     <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="searchCla.css">
 </head>
 <body>
-
-<h1>学生信息管理系统</h1>
-<div style="align :center; background-color:#eeeeee">
-    <sup>·+·+</sup><a href='main.html'>首页</a><sup>·+·+</sup><a href='clamanage.do'>班级管理</a><sup>·+·+</sup><a href='login.jsp'>退出登录</a><sup>·+·+</sup><br>
-    <sup>.+.+.+.+.+</sup><a href='searchcla.html'>查找班级</a><sup>.+.+.+.+.+</sup><a href='addcla.html'>增加班级</a><sup>.+.+.+.+.+</sup><br>
-    <table border=1>
-        <th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>
+    <div class="target">
+            <div class="target-1">     
+                    <select name="" id="select-nav" onchange="window.location=this.value;">
+                        <option value="main.html">首页</option>
+                        <option value="main.html">首页</option>
+                        <option value="clamanage.do">班级管理</option>
+                        <option value="searchcla.html">查找班级</option>
+                        <option value="addcla.html">增加班级</option>
+                        <option value="login.html">退出登录</option>
+                    </select>
+                        </div>
+      <div class="target-2">学生信息管理系统</div>
+     
+    <div class="target-3">
+        <table border=1>
+            <th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>
         <%
             List<Class> list = (List)request.getAttribute("list");
             Page page1 = (Page)request.getAttribute("page");
@@ -92,7 +103,13 @@
     <%
         }
     %>
-    </table>
+                    </table>                    
+    </div>
+    
 </div>
+<div>
+        <marquee behavior="alternate">
+            <span style="color:red; font-size:18px;font-weight:bold;">欢迎来到学生信息管理系统</span>
+            </marquee></div>
 </body>
 </html>

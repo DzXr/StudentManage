@@ -48,26 +48,6 @@ public class CourseControl {
         }
         request.setAttribute("courseList",courseList);
         request.getRequestDispatcher("/courseManage.jsp").forward(request,response);
-        /*PrintWriter out = response.getWriter();
-        out.println("<html></body>");
-        out.println("<h1>学生信息管理系统</h1>");
-        out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
-        out.println("<sup>·+·+</sup><a href='/addClassCourse.do'>添加班级课程</a><sup>·+·+</sup><br>");
-        out.println("<table border=1>");
-        out.println("<th width=10%>课程号</th><th width=10%>课程名</th><th width=10%>学分</th><th width=5%>操作</th>");
-        for (ClassCourse b : list) {
-            out.println("<tr>");
-            course = courseManageService.selectByPrimaryKey(b.getCouid());
-            out.println("<td>" + course.getCouid() + "</td>");
-            out.println("<td>" + course.getCouname() + "</td>");
-            out.println("<td>" + course.getCredit() + "</td>");
-            out.println("<td><a href='/deleteclasscourse.do?claid="+b.getClaid()+"&couid="+ b.getCouid()+"'>删除</a></td>");
-            out.println("</tr>");
-        }
-        out.println("</table>");
-        out.println("</div>");
-        out.println("<html></body>");*/
 
         return null;
     }
@@ -88,7 +68,7 @@ public class CourseControl {
         session.setAttribute("courseList",courseList);
         request.getRequestDispatcher("/addClassCourse.jsp").forward(request,response);
 
-        /*PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWr  iter();
         out.println("<html></body>");
         out.println("<h1>学生信息管理系统</h1>");
         out.println("<div style='aligin:center;background-color=#eeeeee'>");
@@ -153,7 +133,7 @@ public class CourseControl {
         String courseName  = request.getParameter("couname");
         Integer credit = Integer.parseInt(request.getParameter("credit"));
         String remark =  request.getParameter("remark");
-        Course course = new Course(courseUid, courseName,credit,remark);
+        Course course = new Course(courseUid,courseName,credit,remark);
         courseManageService.insert(course);
         response.sendRedirect("/addClassCourse.do");
         return null;

@@ -51,40 +51,7 @@ public class ClassController {
         request.setAttribute("list",list);
         request.setAttribute("page",page);
         request.getRequestDispatcher("/clamanage.jsp").forward(request,response);
-        /*PrintWriter out = response.getWriter();
-        out.println("<html></body>");
-        out.println("<h1>学生信息管理系统</h1>");
-        out.println("<div style='align:center;background-color:#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
-        out.println("<sup>.+.+.+.+.+</sup><a href='searchcla.html'>查找班级</a><sup>.+.+.+.+.+</sup><a href='addcla.html'>增加班级</a><sup>.+.+.+.+.+</sup><br>");
-        out.println("<table border=1>");
-        out.println("<th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>");
-        for (Class b : list) {
-            out.println("<tr>");
-            out.println("<td><a href='/classInformationManage.do?claid=" + b.getClaid() + "'>" + b.getClaid() + "</a></td>");
-            out.println("<td>" + b.getIns() + "</td>");
-            out.println("<td>" + b.getMajor() + "</td>");
-            out.println("<td><a href='/deletecla.do?claid=" + b.getClaid() + "'>删除</a><a href='/updatecla.html?claid=" + b.getClaid() + "'>更新</a></td>");
-            out.println("</tr>");
-        }
-        out.println("</table>");
-        out.println("<br>");
-        if(page.isHasPreviouse()){
-            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start="+(start-count)+"' style=\"text-decoration:none\"><font size=\"2\">上一页</font></a></td></table>");
-        }
-        for (int i = 1; i <= totalPage; i++) {
-            if (start == (i - 1) * count) {
-                out.print("<table style=\"float:left; width:23px; height:15px; border:0px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
-            }
-            else{
-                out.print("<table style=\"float:left; width:23px; height:15px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start=" + ((i - 1) * count) + "' style=\"text-decoration:none\"><font size=\"2\">" + i + "</font></a></td></table>");
-            }
-        }
-        if(page.isHasNext()) {
-            out.print("<table style=\"float:left; width:50px; height:20px; border:1px solid grey; margin-right:3px;\"><td style=\"text-align:center\"><a href='/clamanage.do?start="+(start+count)+"' style=\"text-decoration:none\"><font size=\"2\">下一页</font></a></td></table>");
-        }
-        out.println("</div>");
-        out.println("<html></body>");*/
+
 
         return null;
     }
@@ -128,23 +95,6 @@ public class ClassController {
         session.setAttribute("classes",classes);
         request.getRequestDispatcher("/searchCla.jsp").forward(request,response);
 
-        /*PrintWriter out = response.getWriter();
-        out.println("<html></body>");
-        out.println("<h1>学生信息管理系统</h1>");
-        out.println("<div style='aligin:center;background-color=#eeeeee'>");
-        out.println("<sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.jsp'>退出登录</a><sup>·+·+</sup><br>");
-        out.println("<sup>.+.+.+.+.+</sup><a href='searchcla.html'>查找班级</a><sup>.+.+.+.+.+</sup><a href='addcla.html'>增加班级</a><sup>.+.+.+.+.+</sup><br>");
-        out.println("<table border=1>");
-        out.println("<th width=10%>班级号</th><th width=10%>院系</th><th width=10%>专业</th><th width=10%>操作</th>");
-        out.println("<tr>");
-        out.println("<td><a href='/classInformationManage.do?claid=" + classes.getClaid() + "'>" + classes.getClaid() + "</a></td>");
-        out.println("<td>" + classes.getIns() + "</td>");
-        out.println("<td>" + classes.getMajor() + "</td>");
-        out.println("<td><a href='/deletecla.do?claid=" + classes.getClaid() + "'>删除</a><a href='/updatecla.html?claid=" + classes.getClaid() + "'>更新</a></td>");
-        out.println("</tr>");
-        out.println("</table>");
-        out.println("</div>");
-        out.println("<html></body>");*/
 
         return null;
 

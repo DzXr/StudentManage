@@ -41,7 +41,7 @@ public class TeacherController {
             response.sendRedirect("/main.html");
         }
         else {
-            response.sendRedirect("/login.jsp?judge=1");
+            response.sendRedirect("/login.html?judge=1");
         }
 
         return null;
@@ -65,7 +65,7 @@ public class TeacherController {
         String reNewPassword = request.getParameter("password1");
 
         if(teacherUpdatePasswordService.updatePassword(teacherUid,oldPassword,newPassword,reNewPassword))
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect("/login.html");
         else
             response.sendRedirect("/updateteapassword.html");
 

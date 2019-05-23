@@ -2,20 +2,75 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <title>Student information management system</title>
+	<link rel="stylesheet" href="addCourse.css">
+	<link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-<h1>学生信息管理系统</h1>
-<h2>开设课程</h2>
-<div align ="center" style="text-align:center;background-color:#eeeeee">
-
-    <form action="/addCourse.do" method="post">
-        课程号：<input type="text" name="couid"/><br/>
-        课程名：<input type="text" name="couname"/><br/>
-        学分：<input type="text" name="credit"/><br/>
-        备注：<input type="text" name="remark"/><br/>
-        <input type="submit" value="添加"/>
+	
+	<div class="header">
+	<img src="img/tsglm_r1_c1.png" alt="安徽科技学院" title="安徽科技学院" class="header-title">
+	</div>
+	
+	
+	<div class="tips-security">
+	依据《网络安全法》，为保障您相关功能的正常使用，请尽快完成手机验证。 新版
+		<a href="http://pages.ctrip.com/public/serve%20guideline.html" target="_blank">《隐私政策》</a>
+				 已上线，感谢您的支持。
+	</div>
+	
+	<div class="nav">
+	<div class="target">
+<div class="target-1">
+	<p>学生信息管理系统</p>
+	<br><br>
+       <form action="/addCourse.do" method="post">
+		   <p class="tk">添加课程</p>
+        <i>课程号:</i>&nbsp;&nbsp;&nbsp;<input type="text" name="couid" class="target-2" placeholder="请输入课程号" onblur="checkNumber(this.value)"/><br>
+		   
+        <i>课程名：</i><input type="text" name="couname" class="target-2" placeholder="请输入课程名" onblur="isChinese(this.value)"/><br>
+		   
+        <i>学分</i>：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="credit" class="target-2" placeholder="请输入学分" onblur="checkNumber(this.value)"/><br>
+		   
+        <i>备注</i>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="remark" class="target-2" placeholder="请输入备注" onblur="isChinese(this.value)"/>
+		   <br/><br>
+        <input type="submit" value="添加" class="target-3" style="outline: none;"/>
     </form>
+
+	</div>
+		</div>
+	
+<!--	底部-->
+	
+	<div class="D">
+	<ul>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		</ul>
+	</div>
 </div>
+<script language=javascript> 
+	//验证只能为数字 
+	function checkNumber(obj){ 
+	var reg = /^[0-9]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('只能输入数字！'); 
+	return false; 
+	} 
+	} 
+	function isChinese(obj){ 
+	var reg=/^[\u0391-\uFFE5]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('请输入中文！');
+	return false; 
+	} 
+	}
+	</script>
 </body>
 </html>

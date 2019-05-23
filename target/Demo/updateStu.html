@@ -3,24 +3,71 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
+    <link rel="stylesheet" href="updateStu.css">
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-<h1>学生信息管理系统</h1>
-<h2>班级管理</h2>
-<div align ="center" style="text-align:center;background-color:#eeeeee">
+        <div class="header">
+                <img src="img/tsglm_r1_c1.png" alt="安徽科技学院" title="安徽科技学院" class="header-title">
+          </div>
+          <div class="tips-security">
+                  依据《网络安全法》，为保障您相关功能的正常使用，请尽快完成手机验证。 新版
+                      <a href="http://pages.ctrip.com/public/serve%20guideline.html" target="_blank">《隐私政策》</a>
+                               已上线，感谢您的支持。
+                  </div>
+<div class="nav-0">
 
-    <sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>
-
-    <form action="/updateStu.do" method="post">
-        学号：<input type="text" name="stuid"/><br/>
-        姓名：<input type="text" name="stuname"/><br/>
-        性别：<input type="text" name="stusex"/><br/>
-        出生日期：<input type="text" name="studate"/><br/>
-        地址：<input type="text" name="stuadd"/><br/>
-        入学时间：<input type="text" name="admdate"/><br/>
-        政治面貌：<input type="text" name="polsta"/><br/>
-        <input type="submit" value="确认修改"/>
+ <h1 style="text-align:center;letter-spacing: 12px;">学生信息管理系统</h1>
+ <div class="nav-1">
+     <div class="nav-2">
+       <ul>
+           <li><a href='/main.html'>首页</a></li>
+           <li><a href='/clamanage.do'>班级管理</a></li>
+           <li><a href='/login.html'>退出登录</a></li>
+       </ul>
+    </div>
+    <div class="nav-3">
+    <form action="/searchcla.do" method="post" class="nav-4">
+        <span>学号:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入学号" onblur="checkNumber(this.value)"/><br>
+        <span>姓名:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入姓名" onblur="isChinese(this.value)"/><br>
+        <span>性别:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入性别" onblur="isChinese(this.value)"/><br>
+        <span>出生日期:</span>&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入出生日期" onblur="checkDate(this.value)"/><br>
+        <span>地址:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入地址" onblur="isChinese(this.value)"/><br>
+        <span>入学时间:</span>&nbsp;&nbsp;&nbsp;<input type="text" name="claid"  class="nav-5" placeholder="请输入入学时间" onblur="checkDate(this.value)"/><br>
+        <span>政治面貌:</span>&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入政治面貌" onblur="isChinese(this.value)"/>
+        <br><br>
+        <input type="submit" value="确认修改" class="nav-6" style="outline: none;"/>
     </form>
 </div>
+</div>
+</div>
+<script language=javascript> 
+	//验证只能为数字 
+	function checkNumber(obj){ 
+	var reg = /^[0-9]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('只能输入数字！'); 
+	return false; 
+	} 
+	} 
+	function isChinese(obj){ 
+	var reg=/^[\u0391-\uFFE5]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('请输入中文！');
+	return false; 
+	} 
+	}
+	function checkDate(str){
+     var dateFormat =/^(\d{4})-(\d{2})-(\d{2})$/;
+	 if(dateFormat.test(str)){
+     return true;    
+ }
+ else{
+     alert("格式为  YYYY-MM-DD");
+	 return false;
+ }
+
+}
+	</script>
 </body>
 </html>

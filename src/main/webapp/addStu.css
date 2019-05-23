@@ -10,7 +10,7 @@ div{
 }
 
 body{
-	height: 350px;
+	height: 450px;
 }
 
 body a{
@@ -61,26 +61,29 @@ padding-top: 10px;
 }
 
 .target .target-1{
+	
 	text-align: center;
+}
+.target-1 .bj{
+	font-size: 19px;
+	color: black;
+	background-color: green;
 }
 
 .target-1 form{
+	margin-top: -30px;
+	/* background-color:#BBD1B0; */
+	opacity: 0.8;
 	border: 1px solid black;
 }
 
-.target-1 .tk{
-	background-color:#BBD1B0;
-	display: block;
-	height: 35px;
-	padding-top:8px;
-	color: green;
-	margin-bottom: 10px;
-}
+
 
 .target-1 p{
 	font-size: 18px;
 	font-weight: bold;
 	letter-spacing: 6px;
+	color:green;
 }
 
 .target-1 i{
@@ -92,12 +95,12 @@ padding-top: 10px;
 
 
 .target-1 .target-2{
+	outline: none;
 	width: 180px;
 	height: 30px;
 	border: 1px solid black;
 	margin-bottom: 8px;
 	border-radius: 10px;
-	outline: none;
 }
 
 .target-3{
@@ -121,11 +124,11 @@ padding-top: 10px;
 	width: 100%;
 	height: 60px;
 	/* border: 1px solid black; */
-	margin-top: 90px;
+	margin-top: 140px;
 }
 
 .D ul{
-	margin-left: 200px;
+	margin-left: 190px;
 /*	text-align: center;*/
 }
 
@@ -139,12 +142,16 @@ padding-top: 10px;
 	line-height: 60px;
 }
 .D ul li a{
-	color: black;
 	font-size: 18px;
-	font-weight: 200px;
+	color: black;
+
 }
 .D a:hover{
 	color: #FF6700;
 }
 
 
+.target-1 .nac{
+    display: inline-block;
+    margin-left: 10px;
+}

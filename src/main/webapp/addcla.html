@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
-	<link rel="stylesheet" href="addcla.css">
+    <title>Student information management system</title>
+	<link rel="stylesheet" href="addCourse.css">
 	<link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
 	
 	<div class="header">
-	<img src="img/tsglm_r1_c1.jpg" alt="安徽科技学院" title="安徽科技学院" class="header-title">
+	<img src="img/tsglm_r1_c1.png" alt="安徽科技学院" title="安徽科技学院" class="header-title">
 	</div>
 	
 	
@@ -19,41 +19,59 @@
 				 已上线，感谢您的支持。
 	</div>
 	
-	
+	<div class="nav">
 	<div class="target">
-	<div class="target-1">
-	<p>学生信息管理系统</p>
-	<br><br>
-       <form action="/addcla.do" method="post">
-		   <p class="bj">添加班级</p><br>
-        <i>班级号:</i>&nbsp;<input type="text" name="claid" class="target-2" value="请输入班级号" onfocus="if(this.value=='请输入班级号'){this.value='';}"  onblur="if(this.value==''){this.value='请输入班级号';}"/><br>
-		   
-        <i>院系:</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="ins" class="target-2" value="请输入院系" onfocus="if(this.value=='请输入院系'){this.value='';}"  onblur="if(this.value==' '){this.value='请输入院系';}"/><br>
-		   
-        <i>专业</i>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="major" class="target-2" value="请输入专业" onfocus="if(this.value=='请输入专业'){this.value='';}"  onblur="if(this.value==''){this.value='请输入专业';}"/><br>
-		   
-        <i>班级简介</i>:<input type="text" name="syn" class="target-2" value="请输入班级简介" onfocus="if(this.value=='请输入班级简介'){this.value='';}"  onblur="if(this.value==''){this.value='请输入班级简介';}"/>
-		   <br/><br>
-        <input type="submit" value="添加" class="target-3"/>
-    </form>
-
-	</div>
+		<div class="target-1">
+			<a href="http://www.ahstu.edu.cn/" style="color: black">学生信息管理系统</a>
+			<br><br>
+			   <form action="/addcla.do" method="post">
+				   <p class="bj">添加班级</p><br>
+				<i>班级号:</i>&nbsp;<input type="text" name="claid" class="target-2" placeholder="请输入班级" onblur="checkNumber(this.value)" /><br>
+				   
+				<i>院系</i>:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="ins" class="target-2" placeholder="请输入院系" onblur="isChinese(this.value)"/><br>
+				   
+				<i>专业</i>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="major" class="target-2" placeholder="请输入专业" onblur="isChinese(this.value)"/><br>
+				   
+				<i>班级简介</i>:<input type="text" name="syn" class="target-2" placeholder="请输入班级简介" onblur="isChinese(this.value)"/>
+				   <br/><br>
+				<input type="submit" value="添加" class="target-3" style="outline: none;"/>
+			</form>
+		
+			</div>
 		</div>
 	
 <!--	底部-->
 	
 	<div class="D">
 	<ul>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
-		<li><a href="">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
+		<li><a href="#">联系我们</a></li>
 		</ul>
 	</div>
+</div>
+<script language=javascript> 
+	//验证只能为数字 
+	function checkNumber(obj){ 
+	var reg = /^[0-9]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('只能输入数字！'); 
+	return false; 
+	} 
+	} 
+	function isChinese(obj){ 
+	var reg=/^[\u0391-\uFFE5]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('请输入中文！');
+	return false; 
+	} 
+	}
 	
+	</script>
 </body>
 </html>

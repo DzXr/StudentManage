@@ -3,17 +3,58 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
+    <link rel="stylesheet" href="searchcla1.css">
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-<h1>学生信息管理系统</h1>
-<div align ="center" style="text-align:center;background-color:#eeeeee">
+        <div class="header">
+                <img src="img/tsglm_r1_c1.png" alt="安徽科技学院" title="安徽科技学院" class="header-title">
+          </div>
+          <div class="tips-security">
+                  依据《网络安全法》，为保障您相关功能的正常使用，请尽快完成手机验证。 新版
+                      <a href="http://pages.ctrip.com/public/serve%20guideline.html" target="_blank">《隐私政策》</a>
+                               已上线，感谢您的支持。
+                  </div>
+<div class="nav-0">
 
-    <sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>
-    <form action="/searchStu.do" method="post">
-        学号：<input type="text" name="stuid"/>
-        <input type="submit" value="提交"/>
-    </form>
+ 
+ <div class="nav-1">
+        
+     <div class="nav-2">
+            <h1 style="text-align:center;letter-spacing: 12px;">学生信息管理系统</h1>
+       <ul>
+           <li><a href='/main.html'>首页</a></li>
+           <li><a href='/clamanage.do'>班级管理</a></li>
+           <li><a href='/login.html'>退出登录</a></li>
+       </ul>
+       
+    </div>
+    <div class="nav-3">
+            <form action="/searchStu.do" method="post" class="nav-4">
+                <span>学号</span>:&nbsp;&nbsp;&nbsp;<input type="text" class="input" name="stuid" placeholder="请输入学号" onblur="checkNumber(this.value)"/>
+                <br><br>
+                <input type="submit" value="提交" class="nav-6" style="outline: none;"/>
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+<marquee behavior="alternate">
+        <span style="color:red; font-size:18px;font-weight:bold;">欢迎来到学生信息管理系统</span>
+        </marquee>
+</div>
 
 </div>
+<script language=javascript> 
+    function checkNumber(obj){ 
+    var reg = /^[0-9]+$/; 
+    if(obj!=""&&!reg.test(obj)){ 
+    alert('只能输入数字！'); 
+    return false; 
+    } 
+    } 
+    </script>
 </body>
 </html>

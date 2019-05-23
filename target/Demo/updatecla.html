@@ -3,21 +3,62 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
+    <link rel="stylesheet" href="updatecla.css">
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-<h1>学生信息管理系统</h1>
-<div align ="center" style="text-align:center;background-color:#eeeeee">
+        <div class="header">
+                <img src="img/tsglm_r1_c1.png" alt="安徽科技学院" title="安徽科技学院" class="header-title">
+          </div>
+          <div class="tips-security">
+                  依据《网络安全法》，为保障您相关功能的正常使用，请尽快完成手机验证。 新版
+                      <a href="http://pages.ctrip.com/public/serve%20guideline.html" target="_blank">《隐私政策》</a>
+                               已上线，感谢您的支持。
+                  </div>
+<div class="nav-0">
 
-    <sup>·+·+</sup><a href='/main.html'>首页</a><sup>·+·+</sup><a href='/clamanage.do'>班级管理</a><sup>·+·+</sup><a href='/login.html'>退出登录</a><sup>·+·+</sup><br>
-
-    <form action="/updatecla.do" method="post">
-        班级号：<input type="text" name="claid"/><br/>
-        院系：<input type="text" name="ins"/><br/>
-        专业：<input type="text" name="major"/><br/>
-        教师编码：<input type="text" name="teaid"/><br/>
-        班级简介：<input type="text" name="syn"/><br/>
-        <input type="submit" value="确认修改"/>
+ <h1 style="text-align:center;letter-spacing: 12px;">学生信息管理系统</h1>
+ <div class="nav-1">
+     <div class="nav-2">
+       <ul>
+           <li><a href='/main.html'>首页</a></li>
+           <li><a href='/clamanage.do'>班级管理</a></li>
+           <li><a href='/login.html'>退出登录</a></li>
+       </ul>
+    </div>
+    <div class="nav-3">
+    <form action="/searchcla.do" method="post" class="nav-4">
+        <span> &nbsp;&nbsp;班级号: </span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入班级号" onblur="checkNumber(this.value)"/><br>
+        <span> &nbsp;&nbsp;院系: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入院系" onblur="isChinese(this.value)"/><br>
+        <span> &nbsp;&nbsp;专业: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入专业" onblur="isChinese(this.value)"/><br>
+        <span>教师编码:</span>&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入教师编码" onblur="checkNumber(this.value)"/><br>
+        <span>班级简介:</span>&nbsp;&nbsp;&nbsp;<input type="text" name="claid" class="nav-5" placeholder="请输入班级简介" onblur="isChinese(this.value)"/>
+        <br><br>
+        <input type="submit" value="确认修改" class="nav-6" style="outline: none;"/>
     </form>
 </div>
+</div>
+<br><br>
+<marquee behavior="alternate">
+        <span style="color:red; font-size:18px;font-weight:bold;">欢迎来到学生信息管理系统</span>
+        </marquee>
+</div>
+<script language=javascript> 
+	//验证只能为数字 
+	function checkNumber(obj){ 
+	var reg = /^[0-9]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('只能输入数字！'); 
+	return false; 
+	} 
+	} 
+	function isChinese(obj){ 
+	var reg=/^[\u0391-\uFFE5]+$/; 
+	if(obj!=""&&!reg.test(obj)){ 
+	alert('请输入中文！');
+	return false; 
+	} 
+	}
+	</script>
 </body>
 </html>
